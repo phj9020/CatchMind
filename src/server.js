@@ -23,18 +23,24 @@ const server = app.listen(PORT, ()=> {
 
 const io = new Server(server);
 
-// make array of sockets container 
-let sockets = [];
 
 // entry point on connection 
 io.on("connection", (socket) => {
-    // push each socket id into sockets container 
-    sockets.push(socket.id);
+    // message recieved from client
+    socket.on("newMessage", ({message})=> {
+        // send message to other clients 
+        socket.broadcast.emit("messageNotification", {
+            message, 
+            nickname: socket.nickname || "Anonymous"
+        });
+    });
+
+    // listen nickename event from client
+    socket.on("setNickname", ({nickname})=> {
+        // socket is just object, we can add whatever we want 
+        socket.nickname = nickname;
+    });
 });
 
-
-// setInterval(() => {
-//     console.log(sockets)
-// }, 1000);
 
 
