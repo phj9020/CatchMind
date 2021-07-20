@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
-import socketIO from 'socket.io';
+import morgan from 'morgan';
+import {Server} from 'socket.io';
 
 const app = express();
 
@@ -10,13 +11,30 @@ app.set("view engine", "pug");
 app.set("views", __dirname + '/views');
 
 app.use(express.static(__dirname + "/static"));
+app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
     res.render('home')
 })
 
-app.listen(PORT, ()=> {
+const server = app.listen(PORT, ()=> {
     console.log(`✔️ Server running on http://localhost:${PORT}/`)
 });
 
-console.log(__dirname + "/static")
+const io = new Server(server);
+
+// make array of sockets container 
+let sockets = [];
+
+// entry point on connection 
+io.on("connection", (socket) => {
+    // push each socket id into sockets container 
+    sockets.push(socket.id);
+});
+
+
+// setInterval(() => {
+//     console.log(sockets)
+// }, 1000);
+
+
