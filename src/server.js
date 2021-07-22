@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
 import {Server} from 'socket.io';
+import events from './event';
 import socketController from './socketController';
 
 const app = express();
@@ -15,7 +16,7 @@ app.use(express.static(__dirname + "/static"));
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-    res.render('home')
+    res.render('home', {events : JSON.stringify(events) })
 })
 
 const server = app.listen(PORT, ()=> {

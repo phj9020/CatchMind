@@ -6,8 +6,10 @@ const LOGGED_OUT = "loggedOut";
 const LOGGED_IN = "loggedIn";
 
 const login = (nickname) => {
-    const socket = io("/");
-    socket.emit("setNickname", {nickname});
+    // make socket use it global
+    // eslint-disable-next-line no-undef
+    window.socket = io("/");
+    window.socket.emit(window.globalobject.setNickname, {nickname});
 }
 
 if (nickname === null) {
