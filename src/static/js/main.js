@@ -5,9 +5,9 @@
 "use strict";require("./sockets"),require("./login"),require("./notifications");
 
 },{"./login":1,"./notifications":3,"./sockets":4}],3:[function(require,module,exports){
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.handleNewUser=void 0;var notifications=document.getElementById("jsNotifications"),handleNewUser=function(e){var n=e.nickname;console.log(n,"just joined")};exports.handleNewUser=handleNewUser;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.handleDisconnected=exports.handleNewUser=void 0;var notifications=document.getElementById("jsNotifications"),fireNotification=function(e,n){var t=document.createElement("div");t.innerText=e,t.style.backgroundColor=n,t.className="notification",notifications.appendChild(t)},handleNewUser=function(e){var n=e.nickname;fireNotification("".concat(n," just joined"),"rgb(0, 122, 255)")};exports.handleNewUser=handleNewUser;var handleDisconnected=function(e){var n=e.nickname;fireNotification("".concat(n," disconnected"),"rgb(255, 149, 0)")};exports.handleDisconnected=handleDisconnected;
 
 },{}],4:[function(require,module,exports){
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.initSockets=exports.updateSocket=exports.getSocket=void 0;var _notifications=require("./notifications"),socket=null,getSocket=function(){return socket};exports.getSocket=getSocket;var updateSocket=function(t){return socket=t};exports.updateSocket=updateSocket;var initSockets=function(t){var e=window.globalobject;updateSocket(t),t.on(e.newUser,_notifications.handleNewUser)};exports.initSockets=initSockets;
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.initSockets=exports.updateSocket=exports.getSocket=void 0;var _notifications=require("./notifications"),socket=null,getSocket=function(){return socket};exports.getSocket=getSocket;var updateSocket=function(t){return socket=t};exports.updateSocket=updateSocket;var initSockets=function(t){var e=window.globalobject;updateSocket(t),t.on(e.newUser,_notifications.handleNewUser),t.on(e.disconnected,_notifications.handleDisconnected)};exports.initSockets=initSockets;
 
 },{"./notifications":3}]},{},[2]);

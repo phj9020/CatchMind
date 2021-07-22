@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 @import "./reset.scss";
 @import "./variables.scss";
+@import "./notification.scss";
 
 * {
     box-sizing: border-box;
@@ -53,10 +54,6 @@ body {
     &.loggedIn {
         .gameContainer {
             display: block;
-
-            .gameContainer_title {
-                font-size: 30px;
-            }
         }
     }
 }
