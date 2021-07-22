@@ -7,6 +7,12 @@ html(lang="en")
         link(rel="stylesheet" href="styles/styles.css")
         title Catch Mind Game
     body
-        h1 Hello
+        .loginBox
+            h1.loginBox_title Catch Mind Game 
+            p.loginBox_nickname Enter your nickname
+            form#jsLogin
+                input(placeholder="What is your nickname?", type="text")
+        .gameContainer#jsGame
+            h1.gameContainer_title you are logged In
         script(src="/socket.io/socket.io.js")
         script(src="/js/main.js")
