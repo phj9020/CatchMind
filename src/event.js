@@ -15,7 +15,8 @@ const events = {
     playerUpdate: "playerUpdate",
     gameStarted: "gameStarted",
     painterNotification: "painterNotification",
-    gameEnded: "gameEnded"
+    gameEnded: "gameEnded",
+    gameStarting: "starting"
 };
 
 export default events;
