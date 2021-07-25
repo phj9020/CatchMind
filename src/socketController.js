@@ -16,6 +16,18 @@ const socketController = (socket) => {
     socket.on(events.sendMessage, ({message})=> {
         broadcast(events.messageReceived, {message, nickname: socket.nickname});
     });
+    // listen begin path
+    socket.on(events.beginPath, ({x,y})=> {
+        broadcast(events.beganPath, {x,y});
+    });
+    // listen strokePath
+    socket.on(events.strokePath, ({x,y, color}) => {
+        broadcast(events.strokedPath, {x,y, color});
+    });
+    //listen fill color
+    socket.on(events.fill, ({color}) => {
+        broadcast(events.filled, {color});
+    });
 };
 
 
