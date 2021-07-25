@@ -5,6 +5,7 @@ let sockets = [];
 let inProgress = false;
 let word = null;
 let painter = null;
+let timeout = null;
 
 const choosePainter= () => {
     return sockets[Math.floor(Math.random() * sockets.length)];
@@ -31,12 +32,18 @@ const socketController = (socket, io) => {
                 // tell painter what word need to be painted
                 io.to(painter.id).emit(events.painterNotification, { word });
             }, 5000)
+
+            // time limit 30seconds on each game
+            timeout = setTimeout(endGame, 30000)
         }
     };
 
     const endGame = () => {
         inProgress = false;
         superBroadcast(events.gameEnded);
+        if(timeout) {
+            clearTimeout(timeout);
+        }
         setTimeout(() => {
             if(sockets.length > 1) {
                 startGame();
@@ -54,6 +61,7 @@ const socketController = (socket, io) => {
         // after add points send player update
         superBroadcast(events.playerUpdate, {sockets});
         endGame();
+        clearTimeout(timeout);
     };
 
     // on connect notification

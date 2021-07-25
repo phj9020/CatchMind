@@ -39,7 +39,7 @@ export const handleLeaderNotification = ({word}) => {
     enableCanvas();
     showControls();
     disableChat();
-    notification.innerText = `You are the Painter!! Please paint: ${word}`;
+    notification.innerText = `You are the Painter!! Please paint: ${word}, you got 30 seconds for drawing`;
 }
 
 export const handleGameEnded = () => {
