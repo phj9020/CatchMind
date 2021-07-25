@@ -28,7 +28,7 @@ const io = new Server(server);
 
 // entry point on connection 
 io.on("connection", (socket) => {
-    return socketController(socket);
+    return socketController(socket, io);
 });
 
 
