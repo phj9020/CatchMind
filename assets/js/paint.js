@@ -4,6 +4,7 @@ const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 const color = document.getElementsByClassName("jsColor");
 const mode = document.getElementById("jsMode");
+const controls = document.getElementById("jsControls");
 
 // 기본 컬러  stroke & fill
 const INITIAL_COLOR = "#2c2c2c";
@@ -84,7 +85,7 @@ const fill = (color = null)=> {
   if(color !== null) {
     ctx.fillStyle = color;
   }
-  ctx.fillRect(0, 0, 1200, 700); // set to ixel manipulating size  
+  ctx.fillRect(0, 0, 1200, 700); // set to pixel manipulating size  
   ctx.fillStyle = currentColor;
 }
 
@@ -101,15 +102,6 @@ function contextMU(event){
   event.preventDefault();
 }
 
-
-if (canvas) {
-  canvas.addEventListener("mousemove", onMouseMove);
-  canvas.addEventListener("mousedown", startPainting);
-  canvas.addEventListener("mouseup", stopPainting);
-  canvas.addEventListener("mouseleave", stopPainting);
-  canvas.addEventListener("click", handleCanvasClick);
-  canvas.addEventListener("contextmenu", contextMU);
-}
 
 // Color Change Event Listner
 Array.from(color).forEach((color) =>
@@ -134,4 +126,34 @@ export const handleStrokedPath = ({x,y, color}) => {
 
 export const handleFilled = ({color}) => {
   return fill(color);
+}
+
+export const resetCanvas = () => {
+  return fill("#fff")
+};
+
+export const disableCanvas = () => {
+  canvas.removeEventListener("mousemove", onMouseMove);
+  canvas.removeEventListener("mousedown", startPainting);
+  canvas.removeEventListener("mouseup", stopPainting);
+  canvas.removeEventListener("mouseleave", stopPainting);
+  canvas.removeEventListener("click", handleCanvasClick);
+}
+
+export const enableCanvas = () => {
+  canvas.addEventListener("mousemove", onMouseMove);
+  canvas.addEventListener("mousedown", startPainting);
+  canvas.addEventListener("mouseup", stopPainting);
+  canvas.addEventListener("mouseleave", stopPainting);
+  canvas.addEventListener("click", handleCanvasClick);
+}
+
+
+export const hideControls = () => (controls.style.opacity = 0);
+
+export const showControls = () => (controls.style.opacity = 1);
+
+if (canvas) {
+  canvas.addEventListener("contextmenu", contextMU);
+  hideControls();
 }
